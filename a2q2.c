@@ -18,7 +18,7 @@ int horner(int, int, int[]);
 
 int main(int argc, char* args[]) {
 	if (argc <= 3) {
-		printf("need more than two integer arguments: 2 1 2 3 4\n");
+		printf("need more than two integer arguments: 2 1 2 3 4");
 		return 0;
 	}
 
@@ -39,7 +39,13 @@ int main(int argc, char* args[]) {
 		}
 	}
 	printf("%d", horner(x, n, a));
+	
+	/*infinite loop testing*/
+	// while(1==1){
+	// }
+	
 	return 0;
+	
 }
 
 int horner(int x, int n, int a[]) {
