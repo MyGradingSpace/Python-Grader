@@ -41,8 +41,8 @@ int main(int argc, char* args[]) {
 	printf("%d", horner(x, n, a));
 	
 	/*infinite loop testing*/
-	// while(1==1){
-	// }
+	while(1==1){
+	}
 	
 	return 0;
 	
