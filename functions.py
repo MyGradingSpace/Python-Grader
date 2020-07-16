@@ -26,7 +26,6 @@ def comparsion(line1, line2):
         b=False
     else:
         b=True
-
     return b
 
 def marking(submission, answer):
@@ -53,7 +52,6 @@ def result(line1, line2):
         result = "Correct"
     else:
         result = "Incorect"
-
     return result
 
 # get content for each case
@@ -64,7 +62,7 @@ def getContent(file1):
         Content.append(line1.strip())
     return Content
 
-def createOutput(file1, file2):
+def createOutput(file1, file2): #file1 is answer, file2 is submission
     i=getCaseNumber(file1)
     n=0
     answer = getContent(file1)
@@ -75,43 +73,38 @@ def createOutput(file1, file2):
         fnames = ["Case Number", "Output","Expect Output", "Result"]
         writer = csv.DictWriter(file, fieldnames=fnames) 
         writer.writeheader()
+        c=1
         for n in range(i):
             line1 = file1.readline()
             line2 = file2.readline()
-            b = result(line1, line2)
-            c= getCaseSequence(line1)          
-            writer.writerow({"Case Number" : "Case"+c, "Output" : output[n], "Expect Output" : answer[n], "Result" : b})
+            #c= getCaseSequence(line1)
+            b = result(line1, line2)        
+            writer.writerow({"Case Number" : "Case" + str(c), "Output" : output[n], "Expect Output" : answer[n], "Result" : b})
+            c=c+1
     return file
 
-def runC(args,StuSubs):
+def runC(args,Cname): # c file name
     for file in os.listdir('.'):
         if fnmatch.fnmatch(file, '*.c'):
             filename = file[:-2]
             absolutefile = file
-
     command = "gcc -o "+filename +" " + absolutefile
     os.system(command)
-
     n=1
-    StuSubs.seek(0)
     args.seek(0)
-
+    StuSubs = open("submission.txt","w+")
     for line in args:
         command = filename +" " + line
-
         output = check_output(command,stderr=STDOUT,timeout=5.5)
         output = str(output)
         output.strip("\n")
         output.strip("\r")
         output=output[2:-1]
-        output = "case"+str(n)+" "+output+"\n" 
+        #output = "case"+str(n)+" "+output+"\n" 
+        output = output+"\n"
         StuSubs.write(output)
         n=n+1
-
-    args.close()
-    StuSubs.close()
-
-    return
+    return StuSubs
 
 
 def createResponse(file1,file2):
