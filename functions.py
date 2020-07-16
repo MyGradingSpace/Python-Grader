@@ -1,6 +1,11 @@
 import csv
 import os
 import subprocess
+import data_structure
+import fnmatch
+import time
+from subprocess import STDOUT, check_output
+from threading import Timer
 
 def getCaseSequence(line):
     CaseSequence = line[4]
@@ -76,7 +81,45 @@ def createOutput(file1, file2):
             b = result(line1, line2)
             c= getCaseSequence(line1)          
             writer.writerow({"Case Number" : "Case"+c, "Output" : output[n], "Expect Output" : answer[n], "Result" : b})
-
     return file
+
+def runC(args,StuSubs):
+    for file in os.listdir('.'):
+        if fnmatch.fnmatch(file, '*.c'):
+            filename = file[:-2]
+            absolutefile = file
+
+    command = "gcc -o "+filename +" " + absolutefile
+    os.system(command)
+
+    n=1
+    StuSubs.seek(0)
+    args.seek(0)
+
+    for line in args:
+        command = filename +" " + line
+
+        output = check_output(command,stderr=STDOUT,timeout=5.5)
+        output = str(output)
+        output.strip("\n")
+        output.strip("\r")
+        output=output[2:-1]
+        output = "case"+str(n)+" "+output+"\n" 
+        StuSubs.write(output)
+        n=n+1
+
+    args.close()
+    StuSubs.close()
+
+    return
+
+
+def createResponse(file1,file2):
+    
+
+
+
+
+    return 
 
 
