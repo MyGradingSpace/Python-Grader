@@ -14,7 +14,9 @@ submission = {
 
 grades = {
     "taskname"  : "",
-    "submission" : submission
+    "testCase"  : "",
+    "CaseNumber": 0,
+    "submissions" : { }
 }
 
 results = {
@@ -22,13 +24,13 @@ results = {
     "stduentId" : "",
     "fileId" : "",
     "fileName" : "",
-    "grades": grades
+    "grades": { }
 }
 
 responseBody = {
     "gradingId": "",
     "numOfSubmissions": 0,
-    "results" : results
+    "results" : { }
 }
 
 # data = {'Eleven': 'Millie',
