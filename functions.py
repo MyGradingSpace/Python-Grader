@@ -123,18 +123,11 @@ def createResponse(output):
     this_grades = dict(grades)
     this_results = dict(results)
     
-    df = pd.read_csv(output, delimiter=',')
-
-        
- 
-    
-    
+    df = pd.read_csv(output, delimiter=',')  
     # data={"gradingId": gradingID,
     # "numOfSubmissions": numberOfSubmission,
     # "results" : [results]
-    # }
-    
-    
+    # } 
     return json_file
 
 

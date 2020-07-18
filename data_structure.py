@@ -27,6 +27,7 @@ results = {
     "grades": { }
 }
 
+
 responseBody = {
     "gradingId": "",
     "numOfSubmissions": 0,
@@ -38,3 +39,21 @@ responseBody = {
 #         'Will': 'Noah'}
 # with open('app.json', 'w') as fp:
 #     json.dump(data, fp)
+def add_grades(grades,results):
+    results["grades"].update(grades)
+    return
+def add_results(results,responseBody):
+    responseBody["results"].update(results)
+    return
+# def new_submission(self):
+    
+#     return
+# def new_grades(self):
+
+#     return
+# def new_results(self):
+
+#     return
+# def new_responseBody(self):
+
+#     return

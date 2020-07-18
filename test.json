@@ -8,13 +8,23 @@
         "grades": [
           {
             "filename": "a1.c",
-            "result": [
+            "result": 
               {
                 "output": "abc",
                 "expectOutput": "abc",
-                "match": true
+                "match": true,
+                "mark" : 1
+            }
+          },
+          {"filename": "a1.c",
+            "result": 
+              {
+                "output": "abc",
+                "expectOutput": "abc",
+                "match": true,
+                "mark" : 1
               }
-            ]
+                
           }
         ]
       }
