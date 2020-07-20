@@ -1,8 +1,8 @@
 import csv
 import os
 import subprocess
-from data_structure import submission,grades,results,responseBody
-from data_structure import add_grades,add_results
+from data_structure import testResult,markings,results,responseBody
+from data_structure import add_testResult,add_markings,add_results
 import fnmatch
 import time
 from subprocess import STDOUT, check_output
@@ -16,40 +16,40 @@ gradingID = "YYYYMM-CP493-a01-ab12"
 numberOfSubmission = 1
 studentName = "Fangjian Lei"
 studentID = "163165490"
+
 this_responseBody = dict(responseBody)
 this_results = dict(results)
 
-i=0
-df = pd.read_csv(output, delimiter=',')
+df = pd.read_csv(output, delimiter=',',dtype=str)
 # print(len(df.index))
 
 with open("send.txt","w+") as json_file:
     this_responseBody["gradingId"] = gradingID
     this_responseBody["numOfSubmissions"]=numberOfSubmission
     #this_responseBody["results"]=this_results
-    this_results["studentName"] = studentName
     this_results ["stduentId"] =studentID
-    this_results["fileId"] = ""
-    this_results["fileName"] = ""
+    this_results["EntityId"] = ""
     #this_results["grades"]=this_grades
-    this_submission =dict(submission)
-    this_grades =dict(grades)
+    this_testResult =dict(testResult)
+    this_markings =dict(markings)
+    this_markings["filename"] = "a2q2"
+    this_markings["marked"] = True
+    i=0
     for i in range(len(df.index)):
-        print(df["Case Number"][i])
+        # print(df["Case Number"][i])
         
-        this_submission["output"] = df["Output"][i]
-        this_submission["expectOutput"] = df["Expect Output"][i]
-        this_submission["match"] =df["Result"][i]
+        this_testResult["output"] = df["Output"][i]
+        this_testResult["expectOutput"] = df["Expect Output"][i]
+        this_testResult["match"] =df["Result"][i]
+        this_testResult["marks"] = df["Marks"][i]
+        # this_markings["testResult"] = this_testResult
+        add_testResult(this_testResult,this_markings)
         
-        this_grades["taskname"] = "a2q2"
-        this_grades["testCase"] = df["Case Number"][i]
-        this_grades["CaseNumber"] = i+1
-        this_grades["submissions"] = this_submission
-        add_grades(this_grades,this_results)
         
-        this_submission =dict(submission)
-        this_grades =dict(grades)
+        this_testResult =dict(testResult)
+        # this_grades =dict(markings)
         #json.dump(this_responseBody,json_file)
+    add_markings(this_markings,this_results)
     add_results(this_results,this_responseBody)
     json.dump(this_responseBody,json_file)
 output.close()

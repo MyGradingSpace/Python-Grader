@@ -1,6 +1,6 @@
-Case Number,Output,Expect Output,Result
-Case1,need more than two integer arguments: 2 1 2 3 4,need more than two integer arguments: 2 1 2 3 4,Correct
-Case2,2*1^2 + 3*1^1 + 4*1^0 = 9,2*1^2 + 3*1^1 + 4*1^0 = 9,Correct
-Case3,9*10^5 + 8*10^4 + 7*10^3 + 6*10^2 + 5*10^1 + 4*10^0 = 987654,9*10^5 + 8*10^4 + 7*10^3 + 6*10^2 + 5*10^1 + 4*10^0 = 987654,Correct
-Case4,6*5^1 + 7*5^0 = 37,6*5^1 + 7*5^0 = 37,Correct
-Case5,need more than two integer arguments: 2 1 2 3 4,need more than two integer arguments: 2 1 2 3 4,Correct
+Case Number,Output,Expect Output,Result,Marks
+Case1,need more than two integer arguments: 2 1 2 3 4,need more than two integer arguments: 2 1 2 3 4,Correct,1
+Case2,2*1^2 + 3*1^1 + 4*1^0 = 9,2*1^2 + 3*1^1 + 4*1^0 = 9,Correct,1
+Case3,9*10^5 + 8*10^4 + 7*10^3 + 6*10^2 + 5*10^1 + 4*10^0 = 987654,9*10^5 + 8*10^4 + 7*10^3 + 6*10^2 + 5*10^1 + 4*10^0 = 987654,Correct,1
+Case4,6*5^1 + 7*5^0 = 37,6*5^1 + 7*5^0 = 37,Correct,1
+Case5,need more than two integer arguments: 2 1 2 3 4,need more than two integer arguments: 2 1 2 3 4,Correct,1

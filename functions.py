@@ -1,7 +1,8 @@
 import csv
 import os
 import subprocess
-from data_structure import submission,grades,results,responseBody
+from data_structure import testResult,markings,results,responseBody
+from data_structure import add_testResult,add_markings,add_results
 import fnmatch
 import time
 from subprocess import STDOUT, check_output
@@ -71,7 +72,7 @@ def createOutput(file1, file2): #file1 is answer, file2 is submission
     file1.seek(0)
     file2.seek(0)
     with open('output.csv', 'w+', newline='') as file:
-        fnames = ["Case Number", "Output","Expect Output", "Result"]
+        fnames = ["Case Number", "Output","Expect Output", "Result","Marks"]
         writer = csv.DictWriter(file, fieldnames=fnames) 
         writer.writeheader()
         c=1
@@ -80,7 +81,7 @@ def createOutput(file1, file2): #file1 is answer, file2 is submission
             line2 = file2.readline()
             #c= getCaseSequence(line1)
             b = result(line1, line2)        
-            writer.writerow({"Case Number" : "Case" + str(c), "Output" : output[n], "Expect Output" : answer[n], "Result" : b})
+            writer.writerow({"Case Number" : "Case" + str(c), "Output" : output[n], "Expect Output" : answer[n], "Result" : b,"Marks" : 1})
             c=c+1
     return file
 
@@ -108,26 +109,26 @@ def runC(args,Cname): # c file name
     return StuSubs
 
 
-def createResponse(output): 
-    #file1 is arguments.csv, there should also be a file2 is requesting file from backend
-    #we assume other neccessary parameters
-    json_file = open("send.json","w+")
-    gradingID = "YYYYMM-CP493-a01-ab12"
-    numberOfSubmission = 1
-    studentName = "Fangjian Lei"
-    studentID = "163165490"
+# def createResponse(output): 
+#     #file1 is arguments.csv, there should also be a file2 is requesting file from backend
+#     #we assume other neccessary parameters
+#     json_file = open("send.json","w+")
+#     gradingID = "YYYYMM-CP493-a01-ab12"
+#     numberOfSubmission = 1
+#     studentName = "Fangjian Lei"
+#     studentID = "163165490"
     
-    this_responseBody = dict(responseBody)
+#     this_responseBody = dict(responseBody)
     
-    this_submission = dict(submission)
-    this_grades = dict(grades)
-    this_results = dict(results)
+#     this_submission = dict(submission)
+#     this_grades = dict(grades)
+#     this_results = dict(results)
     
-    df = pd.read_csv(output, delimiter=',')  
-    # data={"gradingId": gradingID,
-    # "numOfSubmissions": numberOfSubmission,
-    # "results" : [results]
-    # } 
-    return json_file
+#     df = pd.read_csv(output, delimiter=',')  
+#     # data={"gradingId": gradingID,
+#     # "numOfSubmissions": numberOfSubmission,
+#     # "results" : [results]
+#     # } 
+#     return json_file
 
 

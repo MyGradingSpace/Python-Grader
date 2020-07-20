@@ -1,32 +1,30 @@
 {
-    "gradingId": "YYYYMM-CP493-a01-ab12",
-    "numOfSubmissions": 101,
-    "results": [
-      {
-        "studentName": "",
-        "stduentId": "",
-        "grades": [
-          {
-            "filename": "a1.c",
-            "result": 
-              {
-                "output": "abc",
-                "expectOutput": "abc",
-                "match": true,
-                "mark" : 1
+  "gradingId": "YYYYMM-CP493-a01-ab12",
+  "numOfSubmissions": 101,
+  "results": [ 
+    {
+    "studentName" : "", 
+    "EntityId" : "" ,
+    "markings" : [ 
+        {
+          "filename": "a1.c",
+          "marked": true, 
+          "testResult": [ 
+            {
+              "output": "abc",
+              "expectOutput": "abc",
+              "match": true,
+              "marks": 1
+            },
+            {
+              "output": "abc",
+              "expectOutput": "abc",
+              "match": true,
+              "marks": 1 
             }
-          },
-          {"filename": "a1.c",
-            "result": 
-              {
-                "output": "abc",
-                "expectOutput": "abc",
-                "match": true,
-                "mark" : 1
-              }
-                
-          }
-        ]
-      }
-    ]
-  }
+          ]
+        }
+      ]
+    }
+  ]
+}
