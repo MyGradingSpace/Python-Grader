@@ -1,5 +1,5 @@
 import requests,json
-
+#send
 testResult = {
     "output" : "",
     "expectOutput" : "",
@@ -25,6 +25,30 @@ responseBody = {
     "numOfSubmissions": 0,
     "results" : [ ]
 }
+#receive
+testCases = {
+    "input" : "",
+    "output" : "",
+    "marks" : 0
+}
+
+configuration = {
+   "filename" : "",
+   "testCases" : [ ]
+}
+
+links = {
+    "EntityId" : "",
+    "filename" : "", #zip
+    "link" : ""
+}
+
+receiveBody={
+    "gradingId" : "",
+    "links" : [ ],
+    "configuration" : [ ]
+}
+
 def add_testResult(testResult,markings):
     markings["testResult"].append(testResult)
     return 
