@@ -8,6 +8,8 @@ import time
 from subprocess import STDOUT, check_output
 from threading import Timer
 import pandas as pd
+import json
+
 
 def getCaseSequence(line):
     CaseSequence = line[4]
@@ -81,9 +83,15 @@ def createOutput(file1, file2): #file1 is answer, file2 is submission
             line2 = file2.readline()
             #c= getCaseSequence(line1)
             b = result(line1, line2)        
-            writer.writerow({"Case Number" : "Case" + str(c), "Output" : output[n], "Expect Output" : answer[n], "Result" : b,"Marks" : 1})
+            if b == "Correct":
+                writer.writerow({"Case Number" : "Case" + str(c), "Output" : output[n], "Expect Output" : answer[n], "Result" : b,"Marks" : 1})
+            else:
+                writer.writerow({"Case Number" : "Case" + str(c), "Output" : output[n], "Expect Output" : answer[n], "Result" : b,"Marks" : 0})
             c=c+1
-    return file
+    
+    temp=open(file.name,"r")   
+    
+    return temp
 
 def runC(args,Cname): # c file name
     for file in os.listdir('.'):
@@ -94,7 +102,7 @@ def runC(args,Cname): # c file name
     os.system(command)
     n=1
     args.seek(0)
-    StuSubs = open("submission.txt","w+")
+    StuSubs = open("submission.txt","r+")
     for line in args:
         command = filename +" " + line
         output = check_output(command,stderr=STDOUT,timeout=5.5)
@@ -108,27 +116,39 @@ def runC(args,Cname): # c file name
         n=n+1
     return StuSubs
 
+def createResponse(output):
+    # output=open("output.csv","r")
+    gradingID = "YYYYMM-CP493-a01-ab12"
+    numberOfSubmission = 1
+    studentID = "163165490"
 
-# def createResponse(output): 
-#     #file1 is arguments.csv, there should also be a file2 is requesting file from backend
-#     #we assume other neccessary parameters
-#     json_file = open("send.json","w+")
-#     gradingID = "YYYYMM-CP493-a01-ab12"
-#     numberOfSubmission = 1
-#     studentName = "Fangjian Lei"
-#     studentID = "163165490"
+    this_responseBody = dict(responseBody)
+    this_results = dict(results)
+    df = pd.read_csv(output, delimiter=',',dtype=str)
+    this_responseBody["gradingId"] = gradingID
+    this_responseBody["numOfSubmissions"]=numberOfSubmission
+    this_results ["studentID"] =studentID
+    this_results["EntityId"] = ""
+    this_testResult =dict(testResult)
+    this_markings =dict(markings)
+    this_markings["filename"] = "a2q2"
+    this_markings["marked"] = True
     
-#     this_responseBody = dict(responseBody)
-    
-#     this_submission = dict(submission)
-#     this_grades = dict(grades)
-#     this_results = dict(results)
-    
-#     df = pd.read_csv(output, delimiter=',')  
-#     # data={"gradingId": gradingID,
-#     # "numOfSubmissions": numberOfSubmission,
-#     # "results" : [results]
-#     # } 
-#     return json_file
+    with open("send.json","w+") as json_file:
+        i=0
+        for i in range(len(df.index)):
 
+            this_testResult["output"] = df["Output"][i]
+            this_testResult["expectOutput"] = df["Expect Output"][i]
+            this_testResult["match"] =df["Result"][i]
+            this_testResult["marks"] = df["Marks"][i]
 
+            add_testResult(this_testResult,this_markings)
+            this_testResult =dict(testResult)
+        
+        add_markings(this_markings,this_results)
+        add_results(this_results,this_responseBody)
+        
+        json.dump(this_responseBody,json_file,indent=4)
+    
+    return json_file
