@@ -14,7 +14,7 @@ markings = {
 }
 
 results = {
-    "stduentId" : "",
+    "studentID" : "",
     "EntityId" : "",
     "markings": [ ]
 }

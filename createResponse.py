@@ -19,21 +19,16 @@ studentID = "163165490"
 
 this_responseBody = dict(responseBody)
 this_results = dict(results)
-
 df = pd.read_csv(output, delimiter=',',dtype=str)
-# print(len(df.index))
-
+this_responseBody["gradingId"] = gradingID
+this_responseBody["numOfSubmissions"]=numberOfSubmission
+this_results ["studentID"] =studentID
+this_results["EntityId"] = ""
+this_testResult =dict(testResult)
+this_markings =dict(markings)
+this_markings["filename"] = "a2q2"
+this_markings["marked"] = True
 with open("send.txt","w+") as json_file:
-    this_responseBody["gradingId"] = gradingID
-    this_responseBody["numOfSubmissions"]=numberOfSubmission
-    #this_responseBody["results"]=this_results
-    this_results ["stduentId"] =studentID
-    this_results["EntityId"] = ""
-    #this_results["grades"]=this_grades
-    this_testResult =dict(testResult)
-    this_markings =dict(markings)
-    this_markings["filename"] = "a2q2"
-    this_markings["marked"] = True
     i=0
     for i in range(len(df.index)):
         # print(df["Case Number"][i])
@@ -44,14 +39,12 @@ with open("send.txt","w+") as json_file:
         this_testResult["marks"] = df["Marks"][i]
         # this_markings["testResult"] = this_testResult
         add_testResult(this_testResult,this_markings)
-        
-        
         this_testResult =dict(testResult)
-        # this_grades =dict(markings)
-        #json.dump(this_responseBody,json_file)
     add_markings(this_markings,this_results)
     add_results(this_results,this_responseBody)
-    json.dump(this_responseBody,json_file)
+    
+    json.dump(this_responseBody,json_file,indent=4)
+    
 output.close()
 json_file.close()
 
