@@ -28,7 +28,7 @@ this_testResult =dict(testResult)
 this_markings =dict(markings)
 this_markings["filename"] = "a2q2"
 this_markings["marked"] = True
-with open("send.txt","w+") as json_file:
+with open("send.json","w+") as json_file:
     i=0
     for i in range(len(df.index)):
         # print(df["Case Number"][i])
