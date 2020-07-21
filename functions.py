@@ -82,8 +82,8 @@ def createOutput(file1, file2): #file1 is answer, file2 is submission
             line1 = file1.readline()
             line2 = file2.readline()
             #c= getCaseSequence(line1)
-            b = result(line1, line2)        
-            if b == "Correct":
+            b = comparsion(line1, line2)        
+            if b == True:
                 writer.writerow({"Case Number" : "Case" + str(c), "Output" : output[n], "Expect Output" : answer[n], "Result" : b,"Marks" : 1})
             else:
                 writer.writerow({"Case Number" : "Case" + str(c), "Output" : output[n], "Expect Output" : answer[n], "Result" : b,"Marks" : 0})
@@ -125,6 +125,7 @@ def createResponse(output):
     this_responseBody = dict(responseBody)
     this_results = dict(results)
     df = pd.read_csv(output, delimiter=',',dtype=str)
+    # df = pd.read_csv(output, delimiter=',')
     this_responseBody["gradingId"] = gradingID
     this_responseBody["numOfSubmissions"]=numberOfSubmission
     # this_results ["studentID"] =studentID
@@ -140,8 +141,8 @@ def createResponse(output):
 
             this_testResult["output"] = df["Output"][i]
             this_testResult["expectOutput"] = df["Expect Output"][i]
-            this_testResult["match"] =df["Result"][i]
-            this_testResult["marks"] = df["Marks"][i]
+            this_testResult["match"] =bool(df["Result"][i])
+            this_testResult["marks"] = int(df["Marks"][i])
 
             add_testResult(this_testResult,this_markings)
             this_testResult =dict(testResult)
