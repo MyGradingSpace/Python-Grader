@@ -118,17 +118,17 @@ def runC(args,Cname): # c file name
 
 def createResponse(output):
     # output=open("output.csv","r")
-    gradingID = "YYYYMM-CP493-a01-ab12"
+    gradingID = "2020-6-CP317T1-A01-5ZMW"
     numberOfSubmission = 1
-    studentID = "163165490"
+    studentID = "3432423"
 
     this_responseBody = dict(responseBody)
     this_results = dict(results)
     df = pd.read_csv(output, delimiter=',',dtype=str)
     this_responseBody["gradingId"] = gradingID
     this_responseBody["numOfSubmissions"]=numberOfSubmission
-    this_results ["studentID"] =studentID
-    this_results["EntityId"] = ""
+    # this_results ["studentID"] =studentID
+    this_results["EntityId"] = studentID
     this_testResult =dict(testResult)
     this_markings =dict(markings)
     this_markings["filename"] = "a2q2"
