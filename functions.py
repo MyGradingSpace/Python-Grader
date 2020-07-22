@@ -93,28 +93,61 @@ def createOutput(file1, file2): #file1 is answer, file2 is submission
     
     return temp
 
-def runC(args,Cname): # c file name
-    for file in os.listdir('.'):
-        if fnmatch.fnmatch(file, '*.c'):
-            filename = file[:-2]
-            absolutefile = file
-    command = "gcc -o "+filename +" " + absolutefile
+# def runC(args,Cname): # c file name
+#     for file in os.listdir('.'):
+#         if fnmatch.fnmatch(file, '*.c'):
+#             filename = file[:-2]
+#             absolutefile = file
+#     command = "gcc -o "+filename +" " + absolutefile
+#     os.system(command)
+#     n=1
+#     args.seek(0)
+#     StuSubs = open("submission.txt","r+")
+#     for line in args:
+#         command = filename +" " + line
+#         output = check_output(command,stderr=STDOUT,timeout=5.5)
+#         output = str(output)
+#         output.strip("\n")
+#         output.strip("\r")
+#         output=output[2:-1]
+#         #output = "case"+str(n)+" "+output+"\n" 
+#         output = output+"\n"
+#         StuSubs.write(output)
+#         n=n+1
+#     return StuSubs
+
+
+# runing one task(filename) for all testing cases only for single student 
+def Run(args,filename): #args is receiveBody[configuration] dictionary, filename is the one of keys in configuration
+    dirpath = os.getcwd()
+    if dirpath.endswith("folder"):
+        p=dirpath
+    else:
+        p = dirpath + '\extracted_folder'
+    os.chdir(p)
+    
+    for file in os.listdir(p):
+        if fnmatch.fnmatch(file,filename):
+            EXEname = file[:-2] # name of .exe
+
+    command = "gcc -o " + EXEname +" " + filename
     os.system(command)
-    n=1
-    args.seek(0)
-    StuSubs = open("submission.txt","r+")
-    for line in args:
-        command = filename +" " + line
-        output = check_output(command,stderr=STDOUT,timeout=5.5)
-        output = str(output)
-        output.strip("\n")
-        output.strip("\r")
-        output=output[2:-1]
-        #output = "case"+str(n)+" "+output+"\n" 
-        output = output+"\n"
-        StuSubs.write(output)
-        n=n+1
-    return StuSubs
+    
+    for x in args:
+        if x["filename"] == filename:
+            n=0
+            temp_array=[]
+            for y in x["testCases"]:
+                line = y["input"]
+                command = EXEname + " " + line
+                output = check_output(command,stderr=STDOUT,timeout=5.5)
+                output = str(output)
+                output.strip("\n")
+                output.strip("\r")
+                output=output[2:-1]
+                temp_array.append(output)
+                n=n+1
+    return temp_array
 
 def createResponse(output):
     # output=open("output.csv","r")
