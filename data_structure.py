@@ -115,6 +115,7 @@ receiveBody={
     "configuration" : [ ]
 }
 
+
 def add_testResult(testResult,markings):
     markings["testResult"].append(testResult)
     return 

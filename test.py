@@ -41,7 +41,7 @@ filename="yyy"
 for x in test["configuration"]:
     # print(x["filename"])
     if x["filename"] == filename:
-        n=0
+        
         for y in x["testCases"]:
             inpu = y["input"]
             print(inpu)

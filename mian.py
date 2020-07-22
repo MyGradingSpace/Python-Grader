@@ -4,25 +4,30 @@ import csv
 
 
 # f1=open("arguments.txt","r")
-
 # f2=runC(f1,"")
 # f3=open("answer.txt","r")
-
 # output = createOutput(f3,f2)
-
 # response = createResponse(output)
-
 # response.close()
 # output.close()
 # f3.close()
 # f2.close()
 # f1.close()
+
 totalArray=[]
 for x in test["configuration"]:
     filename = x["filename"]
     submission = Run(test["configuration"],filename)
     totalArray.append(submission)
-print(totalArray)
+# print(totalArray)
 
-
-
+totalAnswer = []
+for x in test["configuration"]:
+    answer={"filename" : "", "output" : []}
+    filename = x["filename"]
+    answer["filename"] = filename
+    for y in x["testCases"]:
+        output = y["output"]
+        answer["output"].append(output)
+    totalAnswer.append(answer)
+# print(totalAnswer)
