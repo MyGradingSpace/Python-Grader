@@ -70,13 +70,13 @@ test={
 testResult = {
     "output" : "",
     "expectOutput" : "",
-    "match" : True,
+    "match" : False,
     "marks" : 0
 }
 
 markings = {
     "filename" : "",
-    "marked" : True,
+    "marked" : False,
     "testResult" : [ ]
 }
 
@@ -113,6 +113,11 @@ receiveBody={
     "gradingId" : "",
     "links" : [ ],
     "configuration" : [ ]
+}
+
+runC = {
+    "EntityId" : "",
+    "results" : []
 }
 
 

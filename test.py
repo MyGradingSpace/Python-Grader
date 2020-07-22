@@ -36,13 +36,9 @@ test={
     ]
 }
 
-filename="yyy"
-
-for x in test["configuration"]:
-    # print(x["filename"])
-    if x["filename"] == filename:
-        
-        for y in x["testCases"]:
-            inpu = y["input"]
-            print(inpu)
-
+temp = dict(markings)
+print(temp)
+temp["filename"]="x"
+print(temp)
+temp=dict(markings)
+print(temp)
