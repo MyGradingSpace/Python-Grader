@@ -9,7 +9,11 @@ from subprocess import STDOUT, check_output
 from threading import Timer
 import pandas as pd
 import json
-
+import requests
+import urllib.request
+from zipfile import ZipFile
+from urllib.request import urlopen
+from io import BytesIO
 
 # def getCaseSequence(line):
 #     CaseSequence = line[4]
@@ -144,3 +148,36 @@ def Run(args,markings): #args is receiveBody[configuration] dictionary, filename
 #         json.dump(this_responseBody,json_file,indent=4)
     
 #     return json_file
+
+def sendResult(fdata,secretKey):
+    # fdata =open("send.json","rb")
+    # print(json.dump(fdata))
+    # r = requests.put('https://pretty-printed-request-bin.herokuapp.com/1kvflzr1',data=fdata, headers={"key":"oursecret","Content-Type":"application/json"}, timeout=5)
+    r = requests.put('http://localhost:5000/grading',data=fdata, headers={"key": secretKey,"Content-Type":"application/json"}, timeout=10)
+    return r
+
+def receiveData(gradingID,secretKey):
+
+    r = requests.get('http://localhost:5000/joblinks',params={"gradingId" : gradingID},headers={"key":secretKey}, timeout=10)
+
+    return r
+
+def getGradingID(self):
+    gradingID = os.environ['gradingId']
+    return gradingID
+
+def download(zipurl):
+    # cwd = os.getcwd()
+    # cwd = cwd + "\demo.zip"
+    
+    #zipurl = 'https://wlutest.desire2learn.com/d2l/api/le/1.34/219419/dropbox/folders/54721/submissions/1542824/files/2675649?x_t=1595381659&x_a=0tBPhBMpv-WkSV8O_oO5Gw&x_c=1drAAGAyRiriC8ce14q8aLk_HI6bLMLXvUR1v8ZcvhI&x_b=lSj3-aOMLSfTGJcUkossnd&x_d=cA9XVjnKD5RlMnWsgWFwQPAoi_fvPbA3eahMEXaLwc8'
+    
+    # with urlopen(zipurl,timeout=5) as zipresp:
+    #     with ZipFile(BytesIO(zipresp.read())) as zfile:
+    #         zfile.extractall('extracted_forlder')
+    zipresp = urlopen(zipurl,timeout=5)
+    zfile = ZipFile(BytesIO(zipresp.read()))
+    zfile.extractall('extracted_folder')
+
+    zfile.close()
+    return
