@@ -72,17 +72,18 @@ import shutil
 #     return Content
 
 # runing one task(filename) for all testing cases only for single student 
+# EXEname=""
 def Run(args,markings): #args is receiveBody[configuration] dictionary, filename is the one of keys in configuration
     filename = args["filename"]
     dirpath = os.getcwd()
     if dirpath.endswith("EXTRACTED"):
         p = dirpath
+        # print(True)
     else:
         p = dirpath + '\EXTRACTED'
     
     os.chdir(p)
-    print(p)
-    global EXEname
+    # global EXEname
     for file in os.listdir(p):
         if fnmatch.fnmatch(file,filename):
             EXEname = file[:-2] # name of .exe
@@ -180,19 +181,29 @@ def download(zipurl):
     # with urlopen(zipurl,timeout=5) as zipresp:
     #     with ZipFile(BytesIO(zipresp.read())) as zfile:
     #         zfile.extractall('extracted_forlder')
-    zipresp = urlopen(zipurl,timeout=5)
-    zfile = ZipFile(BytesIO(zipresp.read()))
-    zfile.extractall('EXTRACTED')
-
-    zfile.close()
-    return
-
-def clearFolder():
     cwd = os.getcwd()
     if cwd.endswith("EXTRACTED"):
         folder = cwd
     else:
         folder = os.path.join(cwd,'EXTRACTED')
+    zipresp = urlopen(zipurl,timeout=5)
+    zfile = ZipFile(BytesIO(zipresp.read()))
+    zfile.extractall(path=folder)
+
+    zipresp.close()
+    zfile.close()
+    return
+
+def clearFolder():
+    
+    cwd = os.getcwd()
+    if cwd.endswith("EXTRACTED"):
+        folder = cwd
+    else:
+        folder = os.path.join(cwd,'EXTRACTED')
+
+    if not os.path.exists(folder):
+        os.makedirs(folder)
 
     for the_file in os.listdir(folder):
         file_path = os.path.join(folder, the_file)
