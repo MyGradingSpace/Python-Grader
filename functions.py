@@ -14,7 +14,7 @@ import urllib.request
 from zipfile import ZipFile
 from urllib.request import urlopen
 from io import BytesIO
-
+import shutil
 # def getCaseSequence(line):
 #     CaseSequence = line[4]
 #     return CaseSequence
@@ -177,7 +177,20 @@ def download(zipurl):
     #         zfile.extractall('extracted_forlder')
     zipresp = urlopen(zipurl,timeout=5)
     zfile = ZipFile(BytesIO(zipresp.read()))
-    zfile.extractall('extracted_folder')
+    zfile.extractall('EXTRACTED')
 
     zfile.close()
+    return
+
+def clearFolder():
+    folder = '/path/to/folder'
+    for the_file in os.listdir(folder):
+        file_path = os.path.join(folder, the_file)
+    try:
+        if os.path.isfile(file_path):
+            os.unlink(file_path)
+        elif os.path.isdir(file_path):
+            shutil.rmtree(file_path)
+    except Exception as e:
+        print(e)
     return

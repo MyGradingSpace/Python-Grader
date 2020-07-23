@@ -5,12 +5,12 @@ test={
         {
             "EntityId": 123456789,
             "filename" : "youx8420_a02.zip",
-            "link": "https://mylearningspace.wlu.ca/blahblah"
+            "link": "https://github.com/fleiray/Fangjian/files/4967411/youx8420_a02.zip"
         },
         {
             "EntityId": 123456790,
             "filename" : "leix5490_a02.zip",
-            "link": "https://mylearningspace.wlu.ca/blahblah"
+            "link": "https://github.com/fleiray/Fangjian/files/4967409/leix5490_a02.zip"
         }
     ],
     "configuration": [
