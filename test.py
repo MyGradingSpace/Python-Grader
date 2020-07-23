@@ -35,10 +35,27 @@ test={
     }
     ]
 }
+import os
+import shutil
+cwd = os.getcwd()
+    
+folder = os.path.join(cwd,'EXTRACTED')
 
-temp = dict(markings)
-print(temp)
-temp["filename"]="x"
-print(temp)
-temp=dict(markings)
-print(temp)
+for the_file in os.listdir(folder):
+    file_path = os.path.join(folder, the_file)
+    try:
+        if os.path.isfile(file_path):
+            os.unlink(file_path)
+        elif os.path.isdir(file_path):
+            shutil.rmtree(file_path)
+    except Exception as e:
+        print(e)
+if cwd.endswith("EXTRACTED"):
+    folder = cwd
+else:
+    folder = os.path.join(cwd,'EXTRACTED')
+print(folder)
+try:
+    os.rmdir(folder)
+except OSError as e:
+    print("Error: %s : %s" % (folder, e.strerror))

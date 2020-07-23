@@ -15,6 +15,7 @@ from zipfile import ZipFile
 from urllib.request import urlopen
 from io import BytesIO
 import shutil
+
 # def getCaseSequence(line):
 #     CaseSequence = line[4]
 #     return CaseSequence
@@ -74,12 +75,14 @@ import shutil
 def Run(args,markings): #args is receiveBody[configuration] dictionary, filename is the one of keys in configuration
     filename = args["filename"]
     dirpath = os.getcwd()
-    if dirpath.endswith("folder"):
+    if dirpath.endswith("EXTRACTED"):
         p = dirpath
     else:
-        p = dirpath + '\extracted_folder'
+        p = dirpath + '\EXTRACTED'
     
     os.chdir(p)
+    print(p)
+    global EXEname
     for file in os.listdir(p):
         if fnmatch.fnmatch(file,filename):
             EXEname = file[:-2] # name of .exe
@@ -108,6 +111,7 @@ def Run(args,markings): #args is receiveBody[configuration] dictionary, filename
         markings["marked"]=True
         add_testResult(temp_testResult,markings)
         temp_testResult = dict(testResult)
+    
     return markings
 
 
@@ -167,6 +171,7 @@ def getGradingID(self):
     return gradingID
 
 def download(zipurl):
+    clearFolder()
     # cwd = os.getcwd()
     # cwd = cwd + "\demo.zip"
     
@@ -183,14 +188,27 @@ def download(zipurl):
     return
 
 def clearFolder():
-    folder = '/path/to/folder'
+    cwd = os.getcwd()
+    if cwd.endswith("EXTRACTED"):
+        folder = cwd
+    else:
+        folder = os.path.join(cwd,'EXTRACTED')
+
     for the_file in os.listdir(folder):
         file_path = os.path.join(folder, the_file)
+        try:
+            if os.path.isfile(file_path):
+                os.unlink(file_path)
+            elif os.path.isdir(file_path):
+                shutil.rmtree(file_path)
+        except Exception as e:
+            print(e)
+    if cwd.endswith("EXTRACTED"):
+        folder = cwd
+    else:
+        folder = os.path.join(cwd,'EXTRACTED')
     try:
-        if os.path.isfile(file_path):
-            os.unlink(file_path)
-        elif os.path.isdir(file_path):
-            shutil.rmtree(file_path)
-    except Exception as e:
-        print(e)
+        os.rmdir(folder)
+    except OSError as e:
+        print("Error: %s : %s" % (folder, e.strerror))
     return
