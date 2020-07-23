@@ -159,7 +159,7 @@ def sendResult(fdata,secretKey):
     # print(json.dump(fdata))
     # r = requests.put('https://pretty-printed-request-bin.herokuapp.com/1kvflzr1',data=fdata, headers={"key":"oursecret","Content-Type":"application/json"}, timeout=5)
     r = requests.put('http://localhost:5000/grading',data=fdata, headers={"key": secretKey,"Content-Type":"application/json"}, timeout=10)
-    return r
+    return 
 
 def receiveData(gradingID,secretKey):
 
@@ -167,7 +167,7 @@ def receiveData(gradingID,secretKey):
 
     return r
 
-def getGradingID(self):
+def getGradingID():
     gradingID = os.environ['gradingId']
     return gradingID
 
