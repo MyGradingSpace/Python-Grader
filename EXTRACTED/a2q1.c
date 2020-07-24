@@ -1,7 +1,7 @@
 /*
 -------------------------------------
-File:    a2q1.c
-Project: a2q1
+File:    a2q2.c
+Project: a2q2
 file description
 -------------------------------------
 Author:  Fangjian Lei
@@ -18,7 +18,7 @@ int horner(int, int, int[]);
 
 int main(int argc, char* args[]) {
 	if (argc <= 3) {
-		printf("need more than two integer arguments: 2 1 2 3");
+		printf("need more than two integer arguments: 2 1 2 3 4");
 		return 0;
 	}
 
