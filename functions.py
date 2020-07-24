@@ -7,7 +7,6 @@ import fnmatch
 import time
 from subprocess import STDOUT, check_output
 from threading import Timer
-import pandas as pd
 import json
 import requests
 import urllib.request
@@ -80,23 +79,24 @@ def Run(args,markings): #args is receiveBody[configuration] dictionary, filename
         p = dirpath
         # print(True)
     else:
-        p = dirpath + '\EXTRACTED'
+        p = dirpath + '/EXTRACTED'
     
     os.chdir(p)
+    
     # global EXEname
     for file in os.listdir(p):
         if fnmatch.fnmatch(file,filename):
             EXEname = file[:-2] # name of .exe
-
-    command = "gcc -o " + EXEname +" " + filename
+    # EXEname += ".exe"
+    command = "gcc -o " + EXEname + " " + filename
     os.system(command)
     temp_testResult = dict(testResult)
     for y in args["testCases"]:
         para = y["input"]
         ans = y["output"]
         mark = y["marks"]
-        command = EXEname + " " + para
-        output = check_output(command,stderr=STDOUT,timeout=5.5)
+        command = "./" + EXEname 
+        output = check_output([command]+para.split(),stderr=STDOUT,timeout=5.5)
         output = str(output)
         output.strip("\n")
         output.strip("\r")
