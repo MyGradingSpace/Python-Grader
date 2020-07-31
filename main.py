@@ -5,9 +5,9 @@ import os
 
 
 send = dict(responseBody)
-send["gradingId"] = "2020-6-haoquan-dropbox-hin8" # here should be replaced by environmental variable in the future
+# send["gradingId"] = "2020-6-cp317t1-dropbox-fmr5" # here should be replaced by environmental variable in the future
 
-# send["gradingId"] = getGradingID()
+send["gradingId"] = getGradingID()
 
 r = receiveData(send["gradingId"],"oursecret").json()
 
