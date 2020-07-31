@@ -98,7 +98,7 @@ def clearFolder():
 
     if not os.path.exists(folder):
         os.umask(0)
-        os.makedirs(folder)
+        os.makedirs(folder,mode=0o777)
 
     for the_file in os.listdir(folder):
         file_path = os.path.join(folder, the_file)
