@@ -59,13 +59,13 @@ def Run(args,markings): #args is receiveBody[configuration] dictionary, filename
 def sendResult(fdata,secretKey):
     # fdata =open("send.json","rb")
     # r = requests.put('https://pretty-printed-request-bin.herokuapp.com/1kvflzr1',data=fdata, headers={"key":"oursecret","Content-Type":"application/json"}, timeout=5)
-    r = requests.put('http://localhost:5000/grading',data=fdata, headers={"key": secretKey,"Content-Type":"application/json"}, timeout=10)
+    r = requests.put('http://backend-test-my-grading-space.apps.us-east-1.starter.openshift-online.com:80/grading',data=fdata, headers={"key": secretKey,"Content-Type":"application/json"}, timeout=10)
     
     return 
 
 def receiveData(gradingID,secretKey):
 
-    r = requests.get('http://localhost:5000/joblinks',params={"gradingId" : gradingID},headers={"key":secretKey}, timeout=10)
+    r = requests.get('http://backend-test-my-grading-space.apps.us-east-1.starter.openshift-online.com:80/joblinks',params={"gradingId" : gradingID},headers={"key":secretKey}, timeout=10)
 
     return r
 
