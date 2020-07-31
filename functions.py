@@ -70,7 +70,7 @@ def receiveData(gradingID,secretKey):
     return r
 
 def getGradingID():
-    gradingID = os.environ['gradingId']
+    gradingID = os.environ['GRADINGID']
     return gradingID
 
 def download(zipurl):
@@ -97,6 +97,7 @@ def clearFolder():
         folder = os.path.join(cwd,'EXTRACTED')
 
     if not os.path.exists(folder):
+        os.umask(0)
         os.makedirs(folder)
 
     for the_file in os.listdir(folder):
@@ -113,6 +114,7 @@ def clearFolder():
     else:
         folder = os.path.join(cwd,'EXTRACTED')
     try:
+        os.umask(0)
         os.rmdir(folder)
     except OSError as e:
         print("Error: %s : %s" % (folder, e.strerror))
