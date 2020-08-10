@@ -49,7 +49,7 @@ def Run(args,markings): #args is receiveBody[configuration] dictionary, filename
            temp_testResult["marks"] = mark
         else:
             temp_testResult["match"] = False
-            temp_testResult["marks"] = 0
+            temp_testResult["marks"] = mark
         markings["marked"]=True
         add_testResult(temp_testResult,markings)
         temp_testResult = dict(testResult)
